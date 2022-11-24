@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.victoriabarros.apirestmongo.domain.Post;
 import com.victoriabarros.apirestmongo.domain.User;
 import com.victoriabarros.apirestmongo.dto.AuthorDTO;
+import com.victoriabarros.apirestmongo.dto.CommentDTO;
 import com.victoriabarros.apirestmongo.repository.PostRepository;
 import com.victoriabarros.apirestmongo.repository.UserRepository;
 
@@ -41,6 +42,13 @@ public class Instantiation implements CommandLineRunner {
 		
 		Post post1 = new Post(null, sdf.parse("30/10/2022"), "bora votar", "já votei, agora é só aguardar", new AuthorDTO(maria));
 		Post post2 = new Post(null, sdf.parse("24/11/2022"), "copa do mundo!", "vai Brasil!", new AuthorDTO(maria));
+		
+		CommentDTO c1 = new CommentDTO("ansioso com o resultado dessas eleições", sdf.parse("30/10/2022"), new AuthorDTO(alex));
+		CommentDTO c2 = new CommentDTO("apuração muito acirrada", sdf.parse("30/10/2022"), new AuthorDTO(joão));
+		CommentDTO c3 = new CommentDTO("melhor seleção!", sdf.parse("24/10/2022"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1, c2));
+		post2.getComments().addAll(Arrays.asList(c3));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
