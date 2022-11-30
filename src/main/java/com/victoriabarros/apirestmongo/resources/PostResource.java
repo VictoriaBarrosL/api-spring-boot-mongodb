@@ -10,13 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.victoriabarros.apirestmongo.domain.Post;
 import com.victoriabarros.apirestmongo.domain.User;
 import com.victoriabarros.apirestmongo.dto.UserDTO;
+import com.victoriabarros.apirestmongo.resources.util.URL;
 import com.victoriabarros.apirestmongo.services.UserService;
+import com.victoriabarros.apirestmongo.services.PostService;
+import com.victoriabarros.apirestmongo.repository.PostRepository;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -63,5 +67,12 @@ public class PostResource {
 	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
 		User obj = service.findById(id);
 		return ResponseEntity.ok().body(obj.getPosts());
+	}
+	
+	@RequestMapping(value="/titlesearch", method=RequestMethod.GET)
+ 	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value="text", defaultValue="") String text) {
+		text = URL.decodeParam(text);
+		List<Post> list = service.findByTitle(text);
+		return ResponseEntity.ok().body(list);
 	}
 }
