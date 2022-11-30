@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.victoriabarros.apirestmongo.domain.Post;
 import com.victoriabarros.apirestmongo.domain.User;
 import com.victoriabarros.apirestmongo.dto.UserDTO;
 import com.victoriabarros.apirestmongo.repository.UserRepository;
